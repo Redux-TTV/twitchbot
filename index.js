@@ -26,13 +26,19 @@ client.on('connected', (address, port) => {
     client.action(ch, messages(messageNum));
 });
 
-client.on('chat',(channel, user, message, self) => {
+// client.on('chat',(channel, user, message, self) => {
+//     if(this.message === '!triple') {
+//         client.action(ch, 'https://www.twitch.tv/lolwutduck/clip/UninterestedFrailJellyfishSoonerLater');
+//     } else if(this.message === "!uhhh") {
+//         client.action(ch,'https://clips.twitch.tv/RefinedPrettyAlpacaDogFace');
+//     }
+// });
+
+client.on('chat',(channel,user,message,self) => {
     if(message === '!triple') {
-        client.action(ch, 'https://www.twitch.tv/lolwutduck/clip/UninterestedFrailJellyfishSoonerLater');
-    } else if(message == "!uhhh") {
-        client.action(ch,'https://clips.twitch.tv/RefinedPrettyAlpacaDogFace');
+        client.action(ch, 'https://www.twitch.tv/lolwutduck/click/UninterestedFrailJellyfishSoonerLater');
     }
-});
+})
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
