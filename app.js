@@ -42,7 +42,7 @@ client.on('chat',(channel, user, message, self) => {
             }
             dbclient.close();
         });
-    } else if (message.startsWith('!addcommand')) {
+    } else if (message.startsWith('!addcommand') && (user.toLowerCase()==='ctkttv' || user.toLowerCase()==="tigretv")) {
         //message = message.replace(/[^\w\s]/gi, '');
         var newcommand = message.replace('!addcommand ','');
         newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
