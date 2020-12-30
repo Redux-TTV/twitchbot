@@ -39,7 +39,7 @@ client.on('chat',(channel, user, message, self) => {
                 } else {
                     client.action(ch, message + ' is not a known command.');
                 }
-                db.close();
+                dbclient.close();
             }
         });
     }
