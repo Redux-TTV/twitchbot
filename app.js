@@ -27,11 +27,12 @@ client.on('chat',(channel, user, message, self) => {
     if(message.substr(0,1)==='!') {
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
-        MongoClient.connect(url,(err,db) => {
+        MongoClient.connect(url,(err,client) => {
             if(err) {
                 console.log(err);
             } else {
                 console.log('DB connection successful.');
+                let db = client.db('twitchbot')
                 let output = db.collection('commands').find({"command":message.substr(1)}).message;
                 if(output) {
                     client.action(ch, output);
