@@ -39,12 +39,13 @@ client.on('chat',(channel, user, message, self) => {
                         client.action(ch,result.message);
                     }
                 });
-                dbclient.close();
             }
+            dbclient.close();
         });
     } else if (message.startsWith('!addcommand')) {
         var newcommand = message.replace('!addcommand ','');
         newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
+        newcommand = '!'+newcommand.replaceAll('!','');
         var newmessage = message.substr(message.indexOf(']'));
         const newitem = {command: newcommand, message: newmessage};
         const MongoClient = mongodb.MongoClient;
@@ -63,6 +64,7 @@ client.on('chat',(channel, user, message, self) => {
                     console.log(err);
                 });
             }
+            dbclient.close();
         })
     }
     // if(message === '!triple') {
