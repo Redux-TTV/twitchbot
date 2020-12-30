@@ -44,7 +44,7 @@ client.on('chat',(channel, user, message, self) => {
         });
     } else if (message.startsWith('!addcommand')) {
         var command = message.replace('!addcommand ','');
-        command = message.substr(1,message.indexOf(']'));
+        command = command.substr(1,command.indexOf(']'));
         var newmessage = message.substr(message.indexOf(']')+1);
         console.log(command);
         console.log(newmessage);
