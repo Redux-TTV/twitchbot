@@ -32,14 +32,13 @@ client.on('chat',(channel, user, message, self) => {
                 console.log(err);
             } else {
                 console.log('DB connection successful.');
-                let db = dbclient.db('twitchbot')
-                console.log(message);
-                let output = db.collection('commands').findOne({"command":message}).message;
-                if(output) {
-                    client.action(ch, output);
-                } else {
-                    client.action(ch, message + ' is not a known command.');
-                }
+                const database = dbclient.db('twitchbot');
+                const collection = database.collection("commands");
+                collection.findOne({command:message}).then(result => {
+                    if(result) {
+                        client.action(ch,result.message);
+                    }
+                });
                 dbclient.close();
             }
         });
