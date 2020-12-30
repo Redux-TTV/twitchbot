@@ -46,7 +46,8 @@ client.on('chat',(channel, user, message, self) => {
         var command = message.replace('!addcommand ','');
         command = message.substr(1,message.indexOf(']'));
         var newmessage = message.substr(message.indexOf(']')+1);
-        console.log(command, newmessage);
+        console.log(command);
+        console.log(newmessage);
         return;
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
