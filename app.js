@@ -43,7 +43,7 @@ client.on('chat',(channel, user, message, self) => {
             dbclient.close();
         });
     } else if (message.startsWith('!addcommand')) {
-        message = message.replace(/[^\w\s]/gi, '');
+        //message = message.replace(/[^\w\s]/gi, '');
         var newcommand = message.replace('!addcommand ','');
         newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
         newcommand = '!'+newcommand.replace(/!/g,'');
