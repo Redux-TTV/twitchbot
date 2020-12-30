@@ -44,9 +44,9 @@ client.on('chat',(channel, user, message, self) => {
         });
     } else if (message.startsWith('!addcommand')) {
         var newcommand = message.replace('!addcommand ','');
-        newcommand = newcommand.substr(1,command.indexOf(']')-1);
+        newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
         var newmessage = message.substr(message.indexOf(']'));
-        const newitem = {command: command, message: newmessage};
+        const newitem = {command: newcommand, message: newmessage};
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
         MongoClient.connect(url,(err,dbclient) => {
