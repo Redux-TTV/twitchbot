@@ -43,12 +43,10 @@ client.on('chat',(channel, user, message, self) => {
             }
         });
     } else if (message.startsWith('!addcommand')) {
-        var command = message.replace('!addcommand ','');
-        command = command.substr(1,command.indexOf(']'));
-        var newmessage = message.substr(message.indexOf(']')+1);
-        console.log(command);
-        console.log(newmessage);
-        return;
+        var newcommand = message.replace('!addcommand ','');
+        newcommand = newcommand.substr(1,command.indexOf(']')-1);
+        var newmessage = message.substr(message.indexOf(']'));
+        const newitem = {command: command, message: newmessage};
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
         MongoClient.connect(url,(err,dbclient) => {
@@ -58,7 +56,12 @@ client.on('chat',(channel, user, message, self) => {
                 console.log("DB connection successful.");
                 const database = dbclient.db('twitchbot');
                 const collection = database.collection('commands');
-
+                collection.insertOne(newitem).then(result => {
+                    client.action(ch,'Successfully created command: '+newcommand);
+                }).catch(err => {
+                    client.action(ch,'Failed to create new command.');
+                    console.log(err);
+                });
             }
         })
     }
