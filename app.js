@@ -24,7 +24,7 @@ client.on('connected', (address, port) => {
     client.action(ch, messages[messageNum]);
 });
 client.on('chat',(channel, user, message, self) => {
-    if(message.substr(0,1)==='!') {
+    if(message.substr(0,1)==='!' && message !== '!addcommand') {
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
         MongoClient.connect(url,(err,dbclient) => {
@@ -42,6 +42,24 @@ client.on('chat',(channel, user, message, self) => {
                 dbclient.close();
             }
         });
+    } else if (message === '!addcommand') {
+        var command = message.replace('!addcommand ','');
+        command = message.substr(1,message.indexOf(']'));
+        var newmessage = message.substr(message.indexOf(']')+1);
+        console.log(command, newmessage);
+        return;
+        const MongoClient = mongodb.MongoClient;
+        const url = "mongodb://localhost:27017/twitchbot";
+        MongoClient.connect(url,(err,dbclient) => {
+            if(err) {
+                console.log(err);
+            } else {
+                console.log("DB connection successful.");
+                const database = dbclient.db('twitchbot');
+                const collection = database.collection('commands');
+
+            }
+        })
     }
     // if(message === '!triple') {
     //     client.action(ch, 'https://www.twitch.tv/lolwutduck/clip/UninterestedFrailJellyfishSoonerLater');
