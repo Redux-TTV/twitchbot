@@ -33,7 +33,7 @@ client.on('chat',(channel, user, message, self) => {
             } else {
                 console.log('DB connection successful.');
                 let db = dbclient.db('twitchbot')
-                let output = db.collection('commands').find({"command":message}).toArray()[0].message;
+                let output = db.collection('commands').findOne({"command":message}).message;
                 if(output) {
                     client.action(ch, output);
                 } else {
