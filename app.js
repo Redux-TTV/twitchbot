@@ -98,11 +98,12 @@ client.on('chat',(channel, user, message, self) => {
                 collection.find({}).toArray().then(results => {
                     results.forEach(result => {
                         command_array.push(result.command);
-                    }).then(()=> {
-                        let output = command_array.join(', ');
-                        output = output.substr(0,output.length-3);
-                        client.action(ch,'Available commands: '+output);
                     });
+                    let output = command_array.join(', ');
+                    console.log(output);
+                    return;
+                    output = output.substr(0,output.length-3);
+                    client.action(ch,'Available commands: '+output);
                 }).catch(err => {
                     console.log(err);
                 })
