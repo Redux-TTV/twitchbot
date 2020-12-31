@@ -47,7 +47,7 @@ client.on('chat',(channel, user, message, self) => {
         var newcommand = message.replace('!addcommand ','');
         newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
         newcommand = '!'+newcommand.replace(/!/g,'');
-        var newmessage = message.substr(message.indexOf(']'));
+        var newmessage = message.substr(message.indexOf(']')+1);
         const newitem = {command: newcommand, message: newmessage};
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
@@ -67,6 +67,9 @@ client.on('chat',(channel, user, message, self) => {
             }
             dbclient.close();
         })
+    } else if (message.startsWith('!deletecommand') && user['user-type']==='mod') {
+        var command = message.split(" ")[1];
+        console.log(command);
     }
     // if(message === '!triple') {
     //     client.action(ch, 'https://www.twitch.tv/lolwutduck/clip/UninterestedFrailJellyfishSoonerLater');
