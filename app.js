@@ -42,7 +42,7 @@ client.on('chat',(channel, user, message, self) => {
             }
             dbclient.close();
         });
-    } else if (message.startsWith('!addcommand') && user['user-type']==='mod') {
+    } else if (message.startsWith('!addcommand') && (user['user-type']==='mod' || user['display-name'].toLowerCase()==='ctkttv')) {
         const newcommand = '!'+message.split(" ")[1].replace(/[^\w\s]/gi,'')
         const newmessage = message.split(" ").slice(2).join(" ");
         const newitem = {command: newcommand, message: newmessage};
@@ -65,7 +65,7 @@ client.on('chat',(channel, user, message, self) => {
             }
             dbclient.close();
         })
-    } else if (message.startsWith('!deletecommand') && user['user-type']==='mod') {
+    } else if (message.startsWith('!deletecommand') && (user['user-type']==='mod' || user['display-name'].toLowerCase()==='ctkttv')) {
         var delcommand = "!" + message.split(" ")[1].replace(/!/g,'');
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
