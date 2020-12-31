@@ -24,7 +24,7 @@ client.on('connected', (address, port) => {
     client.action(ch, messages[messageNum]);
 });
 client.on('chat',(channel, user, message, self) => {
-    if(message.substr(0,1)==='!' && !message.startsWith('!addcommand') && !message.startsWith('!deletecommand')) {
+    if(message.substr(0,1)==='!' && !message.startsWith('!addcommand') && !message.startsWith('!deletecommand') && !message.startsWith('!commands')) {
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
         MongoClient.connect(url,(err,dbclient) => {
@@ -85,6 +85,22 @@ client.on('chat',(channel, user, message, self) => {
             }
             dbclient.close();
         });
+    } else if (message.startsWith('!commands')) {
+        const MongoClient = mongodb.MongoClient;
+        const url = "mongodb://localhost:27017/twitchbot";
+        MongoClient.connect(url,(err,dbclient) => {
+            if(err) {
+                console.log(err);
+            } else {
+                const database = dbclient.db('twitchbot');
+                const collection = database.collection('commands');
+                collection.find({}).then(result => {
+                    console.log(result.toArray());
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        })
     }
 });
 
