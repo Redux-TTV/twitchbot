@@ -94,7 +94,7 @@ client.on('chat',(channel, user, message, self) => {
             } else {
                 const database = dbclient.db('twitchbot');
                 const collection = database.collection('commands');
-                collection.find({}).then(result => {
+                collection.find({}).toArray().then(result => {
                     console.log(result.toArray());
                 }).catch(err => {
                     console.log(err);
