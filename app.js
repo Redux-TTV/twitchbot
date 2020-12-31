@@ -94,8 +94,14 @@ client.on('chat',(channel, user, message, self) => {
             } else {
                 const database = dbclient.db('twitchbot');
                 const collection = database.collection('commands');
-                collection.find({}).toArray().then(result => {
-                    console.log(result);
+                let command_array = []
+                collection.find({}).toArray().then(results => {
+                    results.forEach(result => {
+                        command_array.push(result.command);
+                    });
+                    let output = command_array.join(', ');
+                    output = output.substr(0,output.length-3);
+                    client.action(ch,'Available commands: '+output);
                 }).catch(err => {
                     console.log(err);
                 })
