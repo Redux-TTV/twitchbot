@@ -44,10 +44,14 @@ client.on('chat',(channel, user, message, self) => {
         });
     } else if (message.startsWith('!addcommand') && user['user-type']==='mod') {
         //message = message.replace(/[^\w\s]/gi, '');
-        var newcommand = message.replace('!addcommand ','');
-        newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
-        newcommand = '!'+newcommand.replace(/!/g,'');
-        var newmessage = message.substr(message.indexOf(']')+1);
+        // var newcommand = message.replace('!addcommand ','');
+        // newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
+        const newcommand = '!'+message.split(" ")[1].replace(/[^\w\s]/gi,'')
+        const newmessage = message.split(" ").slice(2).join(" ");
+        console.log(newcommand);
+        console.log(newmessage);
+        return;
+        //var newmessage = message.substr(message.indexOf(']')+1);
         const newitem = {command: newcommand, message: newmessage};
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
@@ -87,32 +91,9 @@ client.on('chat',(channel, user, message, self) => {
                 })
             }
             dbclient.close();
-        })
+        });
     }
-    // if(message === '!triple') {
-    //     client.action(ch, 'https://www.twitch.tv/lolwutduck/clip/UninterestedFrailJellyfishSoonerLater');
-    // } else if(message === "!uhhh") {
-    //     client.action(ch,'https://clips.twitch.tv/RefinedPrettyAlpacaDogFace');
-    // }
 });
-
-// client.connect();
-
-// client.on('connected', (address, port) => {
-//     const messages = ["I'm baaaack", "Oh god I'm back.", "Where am I?", '*hacker voice*'+"I'm in."]
-//     const messageNum = getRandomInt(messages.length-1);
-//     client.action(ch, messages[messageNum]);
-    
-// });
-
-// client.on('chat',(channel, user, message, self) => {
-    
-//     if(message === '!triple') {
-//         client.action(ch, 'https://www.twitch.tv/lolwutduck/clip/UninterestedFrailJellyfishSoonerLater');
-//     } else if(message === "!uhhh") {
-//         client.action(ch,'https://clips.twitch.tv/RefinedPrettyAlpacaDogFace');
-//     }
-// });
 
 
 function getRandomInt(max) {
