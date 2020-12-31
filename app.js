@@ -60,6 +60,7 @@ client.on('chat',(channel, user, message, self) => {
                 const collection = database.collection('commands');
                 collection.insertOne(newitem).then(result => {
                     client.action(ch,'Successfully created command: '+newcommand);
+                    console.log(result);
                 }).catch(err => {
                     client.action(ch,'Failed to create new command.');
                     console.log(err);
@@ -68,8 +69,25 @@ client.on('chat',(channel, user, message, self) => {
             dbclient.close();
         })
     } else if (message.startsWith('!deletecommand') && user['user-type']==='mod') {
-        var command = message.split(" ")[1];
-        console.log(command);
+        var delcommand = "!" + message.split(" ")[1].replace(/!/g,'');
+        const MongoClient = mongodb.MongoClient;
+        const url = "mongodb://localhost:27017/twitchbot";
+        MongoClient.connect(url,(err,dbclient) => {
+            if(err) {
+                console.log(err);
+            } else {
+                const database = dbclient.db('twitchbot');
+                const collection = database.collection('commands');
+                collection.deleteOne({command:delcommand}).then(result => {
+                    client.action(ch,'Successfully deleted command: '+delcommand);
+                    console.log(result);
+                }).catch(err => {
+                    client.action(ch,'Failed to delete command');
+                    console.log(err);
+                })
+            }
+            dbclient.close();
+        })
     }
     // if(message === '!triple') {
     //     client.action(ch, 'https://www.twitch.tv/lolwutduck/clip/UninterestedFrailJellyfishSoonerLater');
