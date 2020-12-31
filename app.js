@@ -100,9 +100,6 @@ client.on('chat',(channel, user, message, self) => {
                         command_array.push(result.command);
                     });
                     let output = command_array.join(', ');
-                    console.log(output);
-                    return;
-                    output = output.substr(0,output.length-3);
                     client.action(ch,'Available commands: '+output);
                 }).catch(err => {
                     console.log(err);
