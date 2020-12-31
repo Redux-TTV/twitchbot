@@ -24,8 +24,6 @@ client.on('connected', (address, port) => {
     client.action(ch, messages[messageNum]);
 });
 client.on('chat',(channel, user, message, self) => {
-    console.log(user);
-    return;
     if(message.substr(0,1)==='!' && !message.startsWith('!addcommand')) {
         const MongoClient = mongodb.MongoClient;
         const url = "mongodb://localhost:27017/twitchbot";
@@ -44,7 +42,7 @@ client.on('chat',(channel, user, message, self) => {
             }
             dbclient.close();
         });
-    } else if (message.startsWith('!addcommand')) {
+    } else if (message.startsWith('!addcommand') && user['user-type']==='mod') {
         //message = message.replace(/[^\w\s]/gi, '');
         var newcommand = message.replace('!addcommand ','');
         newcommand = newcommand.substr(1,newcommand.indexOf(']')-1);
