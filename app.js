@@ -20,7 +20,7 @@ const client = new tmi.client(options);
 client.connect();
 client.on('connected', (address, port) => {
     const messages = ["I'm baaaack", "Oh god I'm back.", "Where am I?", '*hacker voice*'+"I'm in."]
-    const messageNum = getRandomInt(messages.length-1);
+    const messageNum = getRandomInt(messages.length);
     client.action(ch, messages[messageNum]);
 });
 client.on('chat',(channel, user, message, self) => {
