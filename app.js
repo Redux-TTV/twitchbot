@@ -1,3 +1,4 @@
+require('dotenv').config();
 const tmi = require('tmi.js');
 var mongodb = require('mongodb');
 
@@ -12,7 +13,7 @@ const options = {
     },
     identity: {
         username: 'botCTK',
-        password: 'oauth:n61c6qc1dvjo2us5c3fhpweaqtf1kt'
+        password: BOT_PASS
     },
     channels: [ch]
 };
