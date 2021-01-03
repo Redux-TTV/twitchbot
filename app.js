@@ -13,7 +13,7 @@ const options = {
     },
     identity: {
         username: 'botCTK',
-        password: BOT_PASS
+        password: process.env.BOT_PASS
     },
     channels: [ch]
 };
